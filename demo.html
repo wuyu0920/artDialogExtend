@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+	<meta charset="utf-8" />
+	<title>artDialog</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  
+    <script src="../jquery.js"></script>
+	<script type="text/javascript" src="js/artDialog.js?20161206"></script>
+	<script type="text/javascript" src="js/demo.js"></script>
+
+	<style>
+	*{margin:0;padding:0;}
+	body{font-family:"微软雅黑";}
+	h1{color:#333;margin-bottom: 20px;}
+	h1,h2{font-weight: normal;text-align: center;}
+	/***dialog****/
+	.qhwDialog{background:#fff;}
+	.dialog-close{position: absolute;right:0;top:0;text-decoration: none;}
+	.dialog-button button{padding:0 10px ;padding: 6px 12px;font-size: 14px;font-weight: normal;line-height: 1.428571429;border: 1px solid transparent;border-radius: 4px;}
+	.dialog-button .ok{background-color: #428bca;border-color: #357ebd;color:#fff}
+	.alertDialog,.confirmDialog{width:300px;}
+	.dialogTips{overflow: hidden;padding:20px 20px 20px 50px;}
+
+	.tipsInf{line-height: 20px;padding-top: 20px;float: left;}
+	.dialogBtn{padding-bottom: 20px;}
+	.dialogTitle{border-bottom: 1px solid #ccc;line-height: 32px;height: 32px;font-weight: normal;font-size: 16px;padding:0 0 0 10px; text-align: left}
+	.dialogClose{position: absolute;right:10px;top:0px;color:#333;font-size:20px;text-decoration: none}
+	.warnIco,.succIco,.failIco{display: inline-block;width:55px;height:55px;*display:inline;*zoom:1;float: left;margin-right:20px;}
+	.warnIco{background: url(images/w.jpg) no-repeat;}
+	.succIco{background: url(images/s.jpg) no-repeat;}
+	.failIco{background: url(images/f.jpg) no-repeat;}
+
+	.alertDialog input,.confirmDialog input,.sucDialog input{padding:0 10px ;padding: 6px 12px;font-size: 14px;font-weight: normal;line-height: 1.428571429;border: 1px solid transparent;border-radius: 4px;}
+	.alertDialog input.ok,.confirmDialog input.ok,.sucDialog input.ok{background-color: #428bca;border-color: #357ebd;color:#fff}
+	.dialogBtn,.dialog-button{text-align:center}
+	
+	/***dialog end****/
+	.ui-dialog-loading{width:60px;height:24px;overflow: hidden;text-indent: -999em;background: url(images/loading.gif) no-repeat;display:block; }
+	
+	</style>
+</head>
+<body style="height: 1600px;">
+<br/>
+<h1><center>artDialog扩展方法(服务器环境运行)</center></h1>
+
+<h2>信息提示</h2>
+<div class="aBox">
+		<a href="javascript:qhwDialog.popMsg('w','你小心点！！');">警告提示</a> 
+		<a href="javascript:qhwDialog.popMsg('s','你太棒了！！');">成功提示</a> 
+		<a href="javascript:qhwDialog.popMsg('f','你失败了！！');">失败提示</a>
+</div>
+
+<h2>信息提示(按钮)</h2>
+<div class="aBox">
+		<a href="javascript:qhwDialog.alert('w','你小心点！！',function(){alert('');});">警告提示</a>
+ 		<a href="javascript:qhwDialog.alert('s','你成功！！');">成功提示</a> 
+ 		<a href="javascript:qhwDialog.alert('f','你失败！！');">失败提示</a>
+</div>
+<h2>confirm提示</h2>
+<div class="aBox">
+		<a href="javascript:qhwDialog.confirm('想不想混了？',aa,bb);">警告提示</a>
+</div>
+<h2>open新页面</h2>
+<div class="aBox">
+		<a href="javascript:qhwDialog.open('page.htm');">opne新页面</a>
+</div>
+<h2>loading</h2>
+<div class="aBox">
+		<a href="javascript:qhwDialog.loading();">loading</a>
+</div>
+<!--*****************-->
+<div class="code">
+	<pre>
+	<h3>信息提示</h3>
+	<strong>qhwDialog.popMsg(type,msg); </strong>
+	
+	type取值：w || s || f
+		w //warning 警告	
+		s //success 成功
+		f //fail 失败
+		
+	msg:弹窗的文字信息
+	
+	eg:qhwDialog.popMsg('s','你成功了')
+	
+	</pre>
+</div>
+<!--*****************-->
+<div class="code">
+	<pre>
+	<h3>信息提示(+按钮)</h3>
+	<strong>qhwDialog.alert(type,msg,okFn); </strong>
+	
+	type取值：w || s || f
+		w //warning 警告	
+		s //success 成功
+		f //fail 失败
+		
+	msg:弹窗的文字信息
+	
+	okFn:确定按钮的回调方法
+	
+	eg:qhwDialog.alert('s','你成功了',function(){}) <b>或</b>  qhwDialog.alert('s','你成功了',callBack)
+	
+	function callBack(){}
+	</pre>
+</div>
+<!--*****************-->
+<div class="code">
+	<pre>
+	<h3>confirm</h3>
+	<strong>qhwDialog.confirm(msg,okFn,cancelFn);</strong> 
+		
+	msg:弹窗的文字信息
+	
+	okFn:确定按钮的回调方法
+	
+	cancelFn:取消按钮的回调方法
+	
+	eg:qhwDialog.confirm('你想好了吗',aa,bb)
+	
+	function aa(){}
+	function bb(){}
+	
+	</pre>
+</div>
+<!--*****************-->
+<div class="code">
+	<pre>
+	<h3>open新页面</h3>
+	<strong>qhwDialog.open(url,showCallBack); </strong> 
+	
+	url:页面url地址
+	
+	showCallBack:回调方法
+	
+	eg:qhwDialog.open('page.htm',cc)
+	
+	function cc(){}
+	</pre>
+</div>
+<!--*****************-->
+<div class="code">
+	<pre>
+	<h3>loading</h3>
+	<strong> qhwDialog.loading()</strong> 
+	
+	eg:qhwDialog.loading()
+	
+	</pre>
+</div>
+<!--*****************-->
+<div class="code">
+	<pre>
+	<h3>关闭弹窗</h3>
+	qhwDialog.close() //关闭扩展方法出来的弹窗
+	
+	qhwDialog.closeAll()//关闭artDialog所有弹窗
+	</pre>
+</div>
+<div class="code">
+	<pre>
+	<h3>artDialog内置div弹窗</h3>
+	dialog({
+    		content: document.getElementById('lay1'),//模版对应id
+			ok:function(){	//点击确定
+			 this.close();//关闭弹窗
+			return false;
+			},
+			cancel:function(){ //点击取消
+			this.close();//关闭弹窗
+			return false;
+			}
+	}).showModal();
+	</pre>
+</div>
+
+
+<script type="text/javascript">
+	function b_ok(){
+		alert("你点击了确定...");
+		qhwDialog.close();//关闭弹窗
+	}
+	function c_ok(){
+		alert("你点击确定");
+	}
+	function c_cancel(){
+		alert("你点击取消");
+		qhwDialog.close();//关闭弹窗
+	}
+	//qhwDialog.confirm('你小心点！！',aa,bb);
+	function aa(){alert("ok");}
+	function bb(){alert("cancel");}
+</script>
+
+
+</body>
+</html>
+<style type="text/css">
+/* codebox */
+	.code{width:800px;background: rgba(25,155,36,.2);border:2px solid #ddd;color:#333;margin:10px auto 40px;}
+	.aBox{text-align: center;padding:30px 0;}
+	.aBox a{border:1px solid #eee;padding:3px 10px;color:#333;text-decoration: none;}
+	h2{color:#008cee;}
+	.code h3{font-weight:normal;color:#ff711a;padding-left:40px;font-family:"微软雅黑";}
+	.code strong{font-weight:normal;color:#008cee;font-size:14px;font-family:"微软雅黑";;}
+</style>
